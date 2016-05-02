@@ -4,6 +4,7 @@ __author__ = 'liebesu'
 import re
 from bs4 import BeautifulSoup
 import requests
+import MySQLdb
 
 def computer_book_category(url):
     r=requests.get(url)
@@ -93,7 +94,7 @@ def computer_books_info(category_title,category_href):
         data.append(publishing)
         data.append(price_r)
         data.append(price_n)
-
+        insert_db(data)
     try:
         cat_url='http://category.dangdang.com/'
         next_url=soup.find(class_="next").a.get('href')
@@ -107,10 +108,23 @@ def computer_books_info(category_title,category_href):
 
 
 
-def insert_db():
+def insert_db(data):
     db= MySQLdb.connect(db="book", user="root", passwd="polydata", host="localhost", port=3306,charset='utf8')
     cursor=db.cursor()
-    
+    try:
+        insert_sql='insert into dangdang(category_title,title,star,author,publishing_time,publishing,price_r,price_n) VALUES ' \
+               '("%s","%s","%s","%s","%s","%s","%s") '%(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
+
+        cursor.execute(insert_sql)
+        db.commit()
+        cursor.close()
+        db.close()
+
+    except Exception as e:
+        cursor.close()
+        db.close()
+        print e
+        pass
 
     pass
 
