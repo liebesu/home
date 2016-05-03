@@ -29,49 +29,49 @@ def computer_books_info(category_title,category_href):
     for book in books:
         try:
             title=book.a['title']
-            print title
+            #print title
         except:
             title=book.a['title'].encode('GBK','ignore')
-            print title
+            #print title
         book_soup=BeautifulSoup(str(book),"html.parser")
         try:
             star=book_soup.find(class_="star").a.string
-            print star
+            #print star
         except:
             star="not find star"
-            print star
+            #print star
         try:
             author=book_soup.find(class_='author').a.string
-            print author
+            #print author
         except:
             author="not find author"
-            print author
+            #print author
         try:
             publishing_time=book_soup.find(class_='publishing_time').get_text()
-            print publishing_time
+            #print publishing_time
         except:
             publishing_time="not find publishing time"
-            print publishing_time
+            #print publishing_time
         try:
             publishing=book_soup.find(class_='publishing').get_text()
-            print publishing
+            #print publishing
         except:
             publishing="not find publishing"
-            print publishing
+            #print publishing
         try:
             price_n=book_soup.find(class_='price_n').get_text().encode('GBK','ignore')
-            print price_n
+            #print price_n
         except:
             price_n="not find price_n"
-            print price_n
+            #print price_n
         try:
             price_r=book_soup.find(class_='price_r').get_text().encode('GBK','ignore')
-            print price_r
+            #print price_r
         except:
             price_r="not find price_r"
-            print price_r
+            #print price_r
         a=open('cou1.txt','a')
-        print category_title
+        #print category_title
         a.write("栏目："+category_title.encode('utf-8')+"\n")
         try:
             a.write("书名："+title.encode('utf-8')+"\n")
@@ -112,9 +112,9 @@ def insert_db(data):
     db= MySQLdb.connect(db="book", user="root", passwd="polydata", host="localhost", port=3306,charset='utf8')
     cursor=db.cursor()
     try:
+        print data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7]
         insert_sql='insert into dangdang(category_title,title,star,author,publishing_time,publishing,price_r,price_n) VALUES ' \
-               '("%s","%s","%s","%s","%s","%s","%s") '%(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
-
+               '("%s","%s","%s","%s","%s","%s","%s","%s") '%(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
         cursor.execute(insert_sql)
         db.commit()
         cursor.close()
@@ -124,7 +124,7 @@ def insert_db(data):
         cursor.close()
         db.close()
         print e
-        pass
+        exit()
 
     pass
 
