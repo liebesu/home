@@ -13,10 +13,10 @@ def computer_book_category(url):
     for category in categorys:
         try:
             title=category.get_text()
-            print title
+            #print title
         except:
             title=category.get_text().encode('GBK', 'ignore');
-            print title
+            #print title
         category_title=title
         category_href=category.get('href')
         computer_books_info(category_title,category_href)
@@ -70,28 +70,13 @@ def computer_books_info(category_title,category_href):
         except:
             price_r="not find price_r"
             #print price_r
-        a=open('cou1.txt','a')
-        #print category_title
-        a.write("栏目："+category_title.encode('utf-8')+"\n")
-        try:
-            a.write("书名："+title.encode('utf-8')+"\n")
-        except:
-            a.write("书名："+title+"\n")
-        a.write("评论数："+star.encode('utf-8')+"\n")
-        a.write("作者："+author.encode('utf-8')+"\n")
-        a.write("出版时间："+publishing_time.encode('utf-8')+"\n")
-        a.write("出版社:"+publishing.encode('utf-8')+"\n")
-        a.write("当当价格："+price_r.encode('utf-8')+"\n")
-        a.write("书价："+price_n.encode('utf-8')+"\n")
-        a.write("\n")
-        a.close()
         data=[]
         data.append(category_title)
         data.append(title)
         data.append(star)
         data.append(author)
-        data.append(publishing_time)
-        data.append(publishing)
+        data.append(publishing_time.replace("/","").replace(" ",""))
+        data.append(publishing.replace("/","").replace(" ",""))
         data.append(price_r)
         data.append(price_n)
         insert_db(data)
@@ -99,7 +84,7 @@ def computer_books_info(category_title,category_href):
         cat_url='http://category.dangdang.com/'
         next_url=soup.find(class_="next").a.get('href')
         full_next_url=urljoin(cat_url,next_url)
-        print category_title,full_next_url
+        #print category_title,full_next_url
         computer_books_info(category_title,full_next_url)
     except:
         pass
@@ -112,7 +97,6 @@ def insert_db(data):
     db= MySQLdb.connect(db="book", user="root", passwd="polydata", host="localhost", port=3306,charset='utf8')
     cursor=db.cursor()
     try:
-        print data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7]
         insert_sql='insert into dangdang(category_title,title,star,author,publishing_time,publishing,price_r,price_n) VALUES ' \
                '("%s","%s","%s","%s","%s","%s","%s","%s") '%(data[0],data[1],data[2],data[3],data[4],data[5],data[6],data[7])
         cursor.execute(insert_sql)
