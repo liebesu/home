@@ -17,7 +17,7 @@ def categery(url):
         tag_name=tag.get_text()
         list_book(tag_name,tagurl)
 def list_book(tag_name,tagurl):
-    time.sleep(120)
+    time.sleep(5)
     r=requests.get(tagurl)
     soup=BeautifulSoup(r.text,"html.parser")
     books=soup.find_all(class_="subject-item")
@@ -32,10 +32,10 @@ def list_book(tag_name,tagurl):
             data.append(book_name)
             insert_db(data)
     next=soup.find(class_="next")
-    if next.a:
+    try:
         nexturl=next.a.get('href')
         list_book(tag_name,urljoin(url,nexturl))
-    else:
+    except:
         pass
 def insert_db(data):
     db= MySQLdb.connect(db="book", user="root", passwd="polydata", host="localhost", port=3306,charset='utf8')
