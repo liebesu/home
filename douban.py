@@ -18,23 +18,26 @@ def categery(url):
         list_book(tag_name,tagurl)
 def list_book(tag_name,tagurl):
     time.sleep(5)
-    r=requests.get(tagurl)
-    soup=BeautifulSoup(r.text,"html.parser")
-    books=soup.find_all(class_="subject-item")
-    for book in books:
-        if book.h2.a.string:
-            try:
-                book_name=book.h2.a.string.replace(" ","").replace("\n","")
-            except:
-                book_name=book.h2.a.string.encode('GBK','ignore').replace(" ","").replace("\n","")
-            data=[]
-            data.append(tag_name)
-            data.append(book_name)
-            insert_db(data)
-    next=soup.find(class_="next")
     try:
-        nexturl=next.a.get('href')
-        list_book(tag_name,urljoin(url,nexturl))
+        r=requests.get(tagurl)
+        soup=BeautifulSoup(r.text,"html.parser")
+        books=soup.find_all(class_="subject-item")
+        for book in books:
+            if book.h2.a.string:
+                try:
+                    book_name=book.h2.a.string.replace(" ","").replace("\n","")
+                except:
+                    book_name=book.h2.a.string.encode('GBK','ignore').replace(" ","").replace("\n","")
+                data=[]
+                data.append(tag_name)
+                data.append(book_name)
+                insert_db(data)
+        next=soup.find(class_="next")
+        try:
+            nexturl=next.a.get('href')
+            list_book(tag_name,urljoin(url,nexturl))
+        except:
+            pass
     except:
         pass
 def insert_db(data):
