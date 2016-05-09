@@ -16,7 +16,10 @@ check.update(username+pwd_md5+vtime)
 checksum=check.hexdigest()
 print checksum
 
-payload={'username':username,'vtime':vtime,'checksum':checksum,'domain':'baidu.com'}
-query_url='http://www.domain-api.com/api-product-domain-view.html'
+payload={'username':username,'vtime':vtime,'checksum':checksum}
+query_url='http://www.domain-api.com/api-product-domain-query.html'
 r=requests.post(query_url,params=payload)
+print r.text
+new_url='http://www.domain-api.com/api-product-domain-query.html?domain=hodreams.com'
+r=requests.get(new_url)
 print r.text
