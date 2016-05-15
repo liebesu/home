@@ -39,7 +39,7 @@ def test3():
     a.close()
 def shoturl():
     header={'Referer':'https://www.taobao.com',
-        'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+       'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
         'user-agent':'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36'}
     url='https://rate.taobao.com/feedRateList.htm?auctionNumId=527102009499&userNumId=246418327&currentPageNum=1&pageSize=40&rateType=&orderType=sort_weight&showContent=1&attribute=&sku=&hasSku=false&folded=0&ua=066UW5TcyMNYQwiAiwQRHhBfEF8QXtHcklnMWc%3D%7CUm5OcktwTnNPdUxzS35CfSs%3D%7CU2xMHDJ7G2AHYg8hAS8XKgQkClY3UT1aJF5wJnA%3D%7CVGhXd1llXGdZZFhiW2RcaVVqXWBCfkF%2BRn9LdUp%2BRH9KdkN2THZYDg%3D%3D%7CVWldfS0TMwk3CSkWNhhsDSN1Iw%3D%3D%7CVmJCbEIU%7CV2lJGSQEORknGiICOw47AyMfIRohATsANRUpFywXNw0yB1EH%7CWGFcYUF8XGNDf0Z6WmRcZkZ8R2dZDw%3D%3D&_ksTS=1463017425921_1249&callback=jsonp_tbcrate_reviews_list'
     cookie={'v':'0', 'thw':'cn','cna':'Osm6D3jDRXYCATFB9MyzoDKI','cookie2':'1cf03d604570666062a27eaf51b4f346', 't':'3aec712fba5fb4607ef2d0035c791ff4', 'uc1':'cookie14=UoWxMkAwwQtw8Q%3D%4D', 'l':'An5-hE0K5/9cC4uVpW/NAh0DTp7Av0I5'}
