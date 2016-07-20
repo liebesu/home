@@ -25,7 +25,7 @@ def ssh2(ip,username,passwd,cmd):
 if __name__=='__main__':
     cmd = ['cal','echo hello!']#你要执行的命令列表
     username = "root"  #用户名
-    passwd = "123456"    #密码
+    passwd = "liebesu2015@"    #密码
     threads = [5]   #多线程
     print "Begin......"
     for i in range(1,254):
