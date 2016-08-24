@@ -1,4 +1,4 @@
-
+#coding:UTF-8
 __all__ = ['query', 'bt_query', 'user_query', 'Query', 'ExactQuery', 'SearchQuery',
            'build_query', 'find_tasks_to_download', 'search_tasks', 'expand_bt_sub_tasks']
 
