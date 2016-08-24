@@ -25,7 +25,6 @@ def get_info():
             page_url=urljoin(url,movie_info.get('href'))
             print page_url
             r=requests.get(page_url)
-            print r.content
             soup=BeautifulSoup(r.content,"html.parser")
             movie_info=soup.find(value=re.compile('xzurl='))
             
