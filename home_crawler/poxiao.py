@@ -16,10 +16,11 @@ def readconf():
 def get_info():
     url,serch_word=readconf()
     r=requests.get(url)
-    soup=BeautifulSoup(r.content,"html.parser")
-    movie_lists=soup.find_all(href=re.compile(serch_word))
+    soup=BeautifulSoup(r.content,"html.parser")   
+    movie_lists=soup.find_all(href=re.compile(serch_word+r"/\d*.html"),limit=42)
     for movie_info in movie_lists:
-        print movie_info.text
+        if len(movie_info.text)>8:
+            print movie_info.text.replace(" ","")
 if __name__=="__main__":
     get_info()
     
