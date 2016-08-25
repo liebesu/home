@@ -28,7 +28,7 @@ def get_info():
             soup=BeautifulSoup(r.content,"html5lib")
             movie_info=soup.find(value=re.compile('xzurl='))
             
-            print movie_info.get('value')
+            print movie_info.get('value').replace("xzurl=","")
                      
 def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='polydata', port=3306,
