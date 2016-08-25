@@ -39,7 +39,7 @@ def db_check():
                          charset='utf8')
     cursor = db.cursor()    
 def downloader(url,path):
-    xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei-lixian-master","lixian_cli.py"))
+    xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei","lixian_cli.py"))
     print path
     cmd="python "+xunlei_script+" download "+url+" --output-dir "+path
     print str(cmd)
