@@ -35,13 +35,13 @@ def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='polydata', port=3306,
                          charset='utf8')
     cursor = db.cursor()    
-def download(url,path):
+def downloader(url,path):
     xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei-lixian-master","lixian_cli.py"))
     os.system("python "+xunlei_script+" download "+url+" "+path)
     
     
 if __name__=="__main__":
-    
+    get_info()
     
     
     
