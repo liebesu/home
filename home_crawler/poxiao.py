@@ -38,6 +38,8 @@ def db_check():
     cursor = db.cursor()    
 def downloader(url,path):
     xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei-lixian-master","lixian_cli.py"))
+    print url
+    print path
     os.system("python "+xunlei_script+" download "+url+" "+path)
     
     
