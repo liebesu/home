@@ -1,12 +1,14 @@
-#coding:utf-8
+# -*- coding: utf-8 -*-
 import os
 import re
 import requests
 import MySQLdb
+import commands
 from urlparse import urljoin
 from bs4 import BeautifulSoup
 import ConfigParser
 from lib.common.constants import HOME_CRAWLER_ROOT,THIRD_ROOT
+import chardet
 def db_insert():
     pass
 def readconf():
@@ -38,12 +40,16 @@ def db_check():
     cursor = db.cursor()    
 def downloader(url,path):
     xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei-lixian-master","lixian_cli.py"))
-    print url
     print path
-    os.system("python "+xunlei_script+" download "+url+" "+path)
+    cmd="python "+xunlei_script+" download "+url+" --output-dir "+path
+    print str(cmd)
+    os.popen(cmd,'r').read()
     
     
 if __name__=="__main__":
+    import sys  
+    reload(sys)  
+    sys.setdefaultencoding('utf8')       
     get_info()
     
     
