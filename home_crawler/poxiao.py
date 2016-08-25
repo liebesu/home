@@ -35,7 +35,7 @@ def db_check():
                          charset='utf8')
     cursor = db.cursor()    
 def download():
-    
+    pass
 if __name__=="__main__":
     get_info()
     
