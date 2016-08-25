@@ -30,7 +30,7 @@ def get_info():
             movie_info=soup.find(value=re.compile('xzurl='))
             
             download_url=movie_info.get('value').replace("xzurl=","")
-            download(download_url,save_path)      
+            downloader(download_url,save_path)      
 def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='polydata', port=3306,
                          charset='utf8')
