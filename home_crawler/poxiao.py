@@ -30,7 +30,7 @@ def get_info():
             print page_url
             r=requests.get(page_url)
             soup=BeautifulSoup(r.content,"html5lib")
-            movie_info=soup.find(value=re.compile('xzurl='))
+            movie_info=soup.find_all(value=re.compile('xzurl='))
             
             download_url=movie_info.get('value').replace("xzurl=","")
             downloader(download_url,save_path)      
