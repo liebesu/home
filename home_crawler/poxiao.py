@@ -43,7 +43,8 @@ def downloader(url,path):
     print path
     cmd="python "+xunlei_script+" download "+url+" --output-dir "+path
     print str(cmd)
-    os.popen(cmd,'r').read()
+    if "saved" in os.popen(cmd,'r').read():
+        print url "download finished"
     
     
 if __name__=="__main__":
