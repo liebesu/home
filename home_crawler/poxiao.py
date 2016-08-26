@@ -30,10 +30,10 @@ def get_info():
             print page_url
             r=requests.get(page_url)
             soup=BeautifulSoup(r.content,"html5lib")
-            movie_info=soup.find_all(value=re.compile('xzurl='))
-            
-            download_url=movie_info.get('value').replace("xzurl=","")
-            downloader(download_url,save_path)      
+            movie_infos=soup.find_all(value=re.compile('xzurl='))
+            for movie_info in movie_infos:
+                download_url=movie_info.get('value').replace("xzurl=","")
+                downloader(download_url,save_path)      
 def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='polydata', port=3306,
                          charset='utf8')
