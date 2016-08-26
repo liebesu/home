@@ -22,9 +22,9 @@ def readconf():
     db_user=rf.get("mysql_database", "user")
     db_passwd=rf.get("mysql_database", "passwd")
     db_dbname=rf.get("mysql_database", "db")
-    return url,serch_word,save_path
+    return url,serch_word,save_path,db_host,db_user,db_passwd,db_dbname
 def get_info():
-    url,serch_word,save_path=readconf()
+    url,serch_word,save_path,db_host,db_user,db_passwd,db_dbname=readconf()
     r=requests.get(url)
     soup=BeautifulSoup(r.content,"html.parser")   
     movie_lists=soup.find_all(href=re.compile(serch_word+r"/\d*.html"),limit=42)
@@ -41,7 +41,8 @@ def get_info():
 def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='liebesu', port=3306,
                          charset='utf8')
-    cursor = db.cursor()    
+    cursor = db.cursor()
+    sql_check="select movie from movie where "
 def downloader(url,path):
     xunlei_script=os.path.normpath(os.path.join(THIRD_ROOT,"xunlei","lixian_cli.py"))
     print path
@@ -50,6 +51,7 @@ def downloader(url,path):
     info=os.popen(cmd,'r').read()
     if "saved" in info:
         print url+"download finished"
+        
     else:
         cmd="python "+xunlei_script+" download "+url+" --continue --output-dir "+path
         os.popen(cmd)
