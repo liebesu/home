@@ -31,6 +31,8 @@ def get_info():
     for movie_info in movie_lists:
         if len(movie_info.text)>8:
             page_url=urljoin(url,movie_info.get('href'))
+            movie_name=re.find(re.findall(".*《(.*)》.*",movie_info.text))
+            print movie_name
             print page_url
             r=requests.get(page_url)
             soup=BeautifulSoup(r.content,"html5lib")
