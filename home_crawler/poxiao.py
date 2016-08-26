@@ -18,6 +18,10 @@ def readconf():
     url=rf.get("movie","url")
     serch_word=rf.get("movie","serch_word")
     save_path=rf.get("save", "path")
+    db_host=rf.get("mysql_database", "host")
+    db_user=rf.get("mysql_database", "user")
+    db_passwd=rf.get("mysql_database", "passwd")
+    db_dbname=rf.get("mysql_database", "db")
     return url,serch_word,save_path
 def get_info():
     url,serch_word,save_path=readconf()
@@ -35,7 +39,7 @@ def get_info():
                 download_url=movie_info.get('value').replace("xzurl=","")
                 downloader(download_url,save_path)      
 def db_check():
-    db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='polydata', port=3306,
+    db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='liebesu', port=3306,
                          charset='utf8')
     cursor = db.cursor()    
 def downloader(url,path):
@@ -43,10 +47,14 @@ def downloader(url,path):
     print path
     cmd="python "+xunlei_script+" download "+url+" --output-dir "+path
     print str(cmd)
-    if "saved" in os.popen(cmd,'r').read():
+    info=os.popen(cmd,'r').read()
+    if "saved" in info:
         print url+"download finished"
+    else:
+        cmd="python "+xunlei_script+" download "+url+" --continue --output-dir "+path
+        os.popen(cmd)
     
-    
+
 if __name__=="__main__":
     import sys  
     reload(sys)  
