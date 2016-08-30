@@ -9,5 +9,12 @@ lists=soup.find_all(href=re.compile("/html/gndy/dyzz/\d*"))
 for list in lists:
     print list.get_text()
     href=list.get('href')
-    print href
-    print urljoin(url, href)
+    href=urljoin(url, href)
+    r=requests.get(href)
+    new_soup=BeautifulSoup(r.content,"html5lib")
+    download_url=new_soup.find(href=re.compile("thunder:*"))
+    print download_url.get('href')
+    print download_url.get('thundertype thundertype')
+    
+    
+    
