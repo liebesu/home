@@ -10,12 +10,13 @@ for list in lists:
     if len(list.get_text())>10:
         print list.get_text()
         href=list.get('href')
-        href=urljoin(url, href)        
+        href=urljoin(url, href)
+        print href
         r=requests.get(href)
         new_soup=BeautifulSoup(r.content,"html5lib")
-        download_url=new_soup.find(href=re.compile("thunder:*"))
+        download_url=new_soup.find(href=re.compile("ftp"))
         print download_url.get('href')
-        print download_url.get('thundertype thundertype')
+        print download_url.get_text()
     
     
     
