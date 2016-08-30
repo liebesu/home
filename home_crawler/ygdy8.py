@@ -10,11 +10,12 @@ for list in lists:
     print list.get_text()
     href=list.get('href')
     href=urljoin(url, href)
-    r=requests.get(href)
-    new_soup=BeautifulSoup(r.content,"html5lib")
-    download_url=new_soup.find(href=re.compile("thunder:*"))
-    print download_url.get('href')
-    print download_url.get('thundertype thundertype')
+    if len(list.get_text())>8:
+        r=requests.get(href)
+        new_soup=BeautifulSoup(r.content,"html5lib")
+        download_url=new_soup.find(href=re.compile("thunder:*"))
+        print download_url.get('href')
+        print download_url.get('thundertype thundertype')
     
     
     
