@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
-import re
+import re,time
 import requests
 import MySQLdb
 import commands
@@ -9,6 +9,8 @@ from bs4 import BeautifulSoup
 import ConfigParser
 from lib.common.constants import HOME_CRAWLER_ROOT,THIRD_ROOT
 import chardet
+from baidupcsapi import PCS
+
 def db_insert():
     pass
 def readconf():
@@ -22,6 +24,8 @@ def readconf():
     db_user=rf.get("mysql_database", "user")
     db_passwd=rf.get("mysql_database", "passwd")
     db_dbname=rf.get("mysql_database", "db")
+    baiduname=rf.get("baiduyun", "username")
+    baidupwd=rf.get("baiduyun", "password")
     return url,serch_word,save_path,db_host,db_user,db_passwd,db_dbname
 def get_info():
     url,serch_word,save_path,db_host,db_user,db_passwd,db_dbname=readconf()
@@ -58,6 +62,12 @@ def downloader(url,path):
         cmd="python "+xunlei_script+" download "+url+" --continue --output-dir "+path
         os.popen(cmd)
     
+
+def baiduyun(baiduname,baidupwd):
+    data=time.strftime('%Y%m%d', time.localtime(time.time()))
+    pcs=PCS._login
+    pcs=PCS.mkdir("/movie/%s"%data)
+
 
 if __name__=="__main__":
     import sys  
