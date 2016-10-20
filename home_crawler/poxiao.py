@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import os
+import os,csv
 import re,time
 import requests
 import MySQLdb
@@ -36,14 +36,20 @@ def get_info():
         if len(movie_info.text)>8:
             page_url=urljoin(url,movie_info.get('href'))
             movie_name=re.findall(".*《(.*)》.*",movie_info.text)
-            print movie_name
-            print page_url
             r=requests.get(page_url)
             soup=BeautifulSoup(r.content,"html5lib")
-            movie_infos=soup.find_all(value=re.compile('xzurl='))
-            for movie_info in movie_infos:
-                download_url=movie_info.get('value').replace("xzurl=","")
-                downloader(download_url,save_path)      
+            movie_de_infos=soup.find_all(value=re.compile('xzurl='))
+            for movie_de_info in movie_de_infos:
+                download_url=movie_de_info.get('value').replace("xzurl=","")
+                #downloader(download_url,save_path)
+            with open('poxiao.csv', 'a') as csvfile:
+                spamwriter = csv.writer(csvfile,dialect='excel')
+                list_csv=[]
+                print movie_info.text
+                list_csv.append(movie_info.text)
+                list_csv.append(page_url)
+                list_csv.append(download_url)
+                spamwriter.writerow(list_csv)
 def db_check():
     db = MySQLdb.connect(host='localhost', db='pd_update', user='root', passwd='liebesu', port=3306,
                          charset='utf8')
