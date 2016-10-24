@@ -10,7 +10,6 @@ def get_name(id):
     payload={'uk':str(id)}
     r=requests.get(url,params=payload,headers=headers)
     print r.encoding
-    r.encoding = 'UTF-8'
     soup=BeautifulSoup(r.content,'html5lib')
     name=soup.find(class_='pic-frm-pic')
     a=open('a.txt','a')
@@ -18,10 +17,10 @@ def get_name(id):
     a.close
     
 
-if __name_=="__main__":
+if __name__=="__main__":
     a=range(1,100000)
     pool=Pool(processes=10)
-    pool.map(get_name, iterable)
+    pool.map(get_name, a)
     pool.close()
     pool.join()
     
